@@ -8,8 +8,7 @@ function sample() {
     width: 1,
     static: true,
   };
-  const r = initializeGrid(style, ids);
-  r.create();
+  const r = initializeGrid(style, ids, "body");
 }
 
 sample();
