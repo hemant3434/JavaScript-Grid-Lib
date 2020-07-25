@@ -14,14 +14,20 @@ function sample() {
     "#img9",
   ];
   const style = {
-    gap: 25,
-    width: 3,
+    padding: 20,
+    gap: 20,
+    numCols: 1,
+    // width: 800,
+    // height: 800,
     static: true,
     customSize: false,
-    sizeEach: 100,
+    // sizeCol: 400,
+    widthItem: 250,
+    heightItem: 150,
     color: "red",
+    draggable: true,
   };
-  const r = initializeGrid(style, ids, "#parent");
+  const r = initializeGrid(style, "#parent");
 }
 
 sample();

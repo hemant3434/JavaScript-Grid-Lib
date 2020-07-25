@@ -1,8 +1,12 @@
-.grid-container {
-  display: grid;
+.grid-item {
+  display: inline-block;
+  width: max;
 }
 
-.grid-item {
-  width: max-content;
-  height: max-content;
+.draggable {
+  cursor: move;
+}
+
+.draggable.dragging {
+  opacity: 0.4;
 }
