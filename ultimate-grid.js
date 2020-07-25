@@ -9,12 +9,26 @@ function initializeGrid(style, list, parent) {
   self.parent = parent;
 
   void (() => {
-    self.items.map((ID) => {
-      $(self.parent).append($("<div></div>").append($(ID)));
+    buildParentGridContainer();
+    self.items.map((elem) => {
+      $(self.parent).append($("<div></div>").append($(elem)));
     });
-
-    print("done creating");
   })();
+
+  function buildParentGridContainer() {
+    let tempCol = "";
+    for (let i = 0; i < self.style.width; i++) {
+      tempCol += self.style.sizeEach.toString() + "px ";
+    }
+    self.parentCss = {
+      "background-color": self.style.color,
+      "grid-template-columns": tempCol,
+      "grid-gap": self.style.gap,
+      display: "grid",
+      "justify-content": "space-evenly",
+    };
+    $(self.parent).css(self.parentCss);
+  }
 
   return self;
 }
