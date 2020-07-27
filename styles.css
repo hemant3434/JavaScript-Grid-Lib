@@ -10,3 +10,12 @@
 .draggable.dragging {
   opacity: 0.4;
 }
+
+.swap {
+  border: 5px dotted purple;
+}
+
+#section {
+  float: left;
+  /* background-color: rgba(50, 0, 0, 0.4); */
+}

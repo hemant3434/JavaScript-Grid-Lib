@@ -13,21 +13,34 @@ function sample() {
     "#img8",
     "#img9",
   ];
-  const style = {
-    padding: 20,
+
+  const style1 = {
+    padding: 10,
     gap: 20,
     numCols: 1,
     // width: 800,
     // height: 800,
-    static: true,
-    customSize: false,
     // sizeCol: 400,
-    widthItem: 250,
-    heightItem: 150,
-    color: "red",
+    widthItem: 100,
+    heightItem: 130,
+    color: "rgba(50, 0, 0, 0.3)",
+    draggable: false,
+  };
+  initializeGrid(style1, "#section");
+
+  const style2 = {
+    padding: 10,
+    gap: 20,
+    numCols: 4,
+    // width: 800,
+    // height: 800,
+    // sizeCol: 400,
+    widthItem: 200,
+    heightItem: 130,
+    color: "rgba(255, 0, 0, 0.3)",
     draggable: true,
   };
-  const r = initializeGrid(style, "#parent");
+  initializeGrid(style2, "#items");
 }
 
 sample();

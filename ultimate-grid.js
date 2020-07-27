@@ -21,7 +21,6 @@ function initializeGrid(style, gridRoot) {
       $(self.gridRoot).children().addClass("draggable");
 
       drag.elems = [...$(".draggable")];
-      print(drag.elems);
       drag.elems.forEach((element) => {
         element.addEventListener("dragstart", () => {
           element.classList.add("dragging");
@@ -30,16 +29,56 @@ function initializeGrid(style, gridRoot) {
 
       drag.elems.forEach((element) => {
         element.addEventListener("dragend", () => {
+          const temp = $(drag.next).next();
+          if (drag.next != null) {
+            $(drag.next).insertBefore(".dragging");
+            $(".dragging").insertBefore(temp);
+          }
+          $(drag.next).removeClass("swap");
           element.classList.remove("dragging");
         });
       });
 
       document
         .getElementById(self.gridRoot.substring(1))
-        .addEventListener("dragover", () => {
-          print("drag over");
+        .addEventListener("dragover", (e) => {
+          e.preventDefault();
+          const next = getDragAfterElement(
+            document.getElementById(self.gridRoot.substring(1)),
+            e.clientY,
+            e.clientX
+          );
+          if (next != null) {
+            drag.next = next;
+            $(self.gridRoot).children(".swap").removeClass("swap");
+            $(drag.next).addClass("swap");
+          }
         });
     }
+  }
+
+  function getDragAfterElement(root, y, x) {
+    const all = [...root.querySelectorAll(".draggable:not(.dragging)")];
+    return all.reduce(
+      (closest, child) => {
+        const box = child.getBoundingClientRect();
+        const offset = [
+          x - box.left - box.width / 2,
+          y - box.top - box.height / 2,
+        ];
+        if (
+          offset[0] < 0 &&
+          offset[0] > closest.offset[0] &&
+          offset[1] < 0 &&
+          offset[1] > closest.offset[1]
+        ) {
+          return { offset: offset, element: child };
+        } else {
+          return closest;
+        }
+      },
+      { offset: [Number.NEGATIVE_INFINITY, Number.NEGATIVE_INFINITY] }
+    ).element;
   }
 
   function getChildCSS() {
