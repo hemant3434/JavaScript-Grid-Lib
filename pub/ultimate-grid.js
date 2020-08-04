@@ -31,6 +31,7 @@ function initializeGrid(style, gridRoot) {
         element.addEventListener("dragend", () => {
           const temp = $(drag.next).next();
           if (drag.next != null) {
+            print(document.getElementById(drag.next.id));
             $(drag.next).insertBefore(".dragging");
             $(".dragging").insertBefore(temp);
           }
