@@ -2,6 +2,7 @@
 console.log("example");
 
 function sample() {
+  let combine = {};
   const style1 = {
     // padding: 10,
     // gap: 20,
@@ -13,6 +14,7 @@ function sample() {
     heightItem: 130,
     color: "rgba(255, 0, 0, 0.3)",
     draggable: true,
+    combine: combine,
   };
   initializeGrid(style1, "#items2");
 
@@ -27,6 +29,7 @@ function sample() {
     heightItem: 130,
     color: "rgba(255, 0, 0, 0.3)",
     draggable: true,
+    combine: combine,
   };
   initializeGrid(style2, "#items");
 }

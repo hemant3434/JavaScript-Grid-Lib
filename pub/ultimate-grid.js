@@ -37,24 +37,32 @@ function initializeGrid(style, gridRoot) {
     });
 
     drag.elems.forEach((element) => {
-      element.addEventListener("dragend", (e) => {
+      element.addEventListener("drop", (e) => {
+        print(e.target);
+        $(".swap").removeClass("swap");
+        const copy_to = $(".dragging").clone(true);
+        copy_to.removeClass("dragging");
         if (drag.next) {
-          $(drag.next).removeClass("swap");
-          const copy_to = $(".dragging").clone(true);
-          copy_to.removeClass("dragging");
           const copy_from = $(drag.next).clone(true);
-
           $(drag.next).replaceWith(copy_to);
           $(".dragging").replaceWith(copy_from);
-          initiateDraggable();
         }
+        initiateDraggable();
         element.classList.remove("dragging");
+      });
+    });
+
+    drag.elems.forEach((element) => {
+      element.addEventListener("dragend", (e) => {
+        print(e.target);
+        initiateDraggable();
       });
     });
 
     document
       .getElementById(self.gridRoot.substring(1))
       .addEventListener("dragover", (e) => {
+        // initiateDraggable();
         e.preventDefault();
         const next = getDragAfterElement(
           document.getElementById(self.gridRoot.substring(1)),
@@ -62,9 +70,10 @@ function initializeGrid(style, gridRoot) {
           e.clientX
         );
         if (next) {
+          // print(next);
           drag.next = next;
-          $(self.gridRoot).children(".swap").removeClass("swap");
-          $(drag.next).addClass("swap");
+          $(".swap").removeClass("swap");
+          $(next).addClass("swap");
         }
       });
   }
