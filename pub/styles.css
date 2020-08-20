@@ -10,12 +10,45 @@
 .draggable.dragging {
   opacity: 0.4;
 }
-
-.swap {
-  border: 5px dotted purple;
+::selection {
+  user-select: none;
 }
 
-#section {
+.swap {
+  border: 3px dotted black;
+}
+
+#schedule {
+  margin: 10px;
+  background-color: rgba(255, 0, 0, 0.4);
+  border-radius: 20px;
+}
+
+#schedule2 {
+  margin: 10px;
+  background-color: rgba(0, 255, 0, 0.4);
+  border-radius: 20px;
+}
+
+#txtSchedule {
+  margin: 20px;
+  font-size: 25px;
+}
+
+#items {
   float: left;
+  border-radius: 10px;
+}
+
+#yy {
+  width: 10px;
+  height: 100px;
+  float: left;
+}
+
+#items2 {
+  float: left;
+  border-radius: 10px;
+
   /* background-color: rgba(50, 0, 0, 0.4); */
 }

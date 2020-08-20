@@ -18,55 +18,66 @@ function initializeGrid(style, gridRoot) {
     $(self.gridRoot).children().css(tempCSS);
 
     if (self.style.draggable) {
-      $(self.gridRoot).children().addClass("draggable");
-
-      drag.elems = [...$(".draggable")];
-      drag.elems.forEach((element) => {
-        element.addEventListener("dragstart", () => {
-          element.classList.add("dragging");
-        });
-      });
-
-      drag.elems.forEach((element) => {
-        element.addEventListener("dragend", () => {
-          const temp = $(drag.next).next();
-          if (drag.next != null) {
-            print(document.getElementById(drag.next.id));
-            $(drag.next).insertBefore(".dragging");
-            $(".dragging").insertBefore(temp);
-          }
-          $(drag.next).removeClass("swap");
-          element.classList.remove("dragging");
-        });
-      });
-
-      document
-        .getElementById(self.gridRoot.substring(1))
-        .addEventListener("dragover", (e) => {
-          e.preventDefault();
-          const next = getDragAfterElement(
-            document.getElementById(self.gridRoot.substring(1)),
-            e.clientY,
-            e.clientX
-          );
-          if (next != null) {
-            drag.next = next;
-            $(self.gridRoot).children(".swap").removeClass("swap");
-            $(drag.next).addClass("swap");
-          }
-        });
+      initiateDraggable();
     }
   }
 
+  function initiateDraggable() {
+    $(self.gridRoot).children().addClass("draggable");
+
+    drag.elems = [
+      ...document
+        .getElementById(self.gridRoot.substring(1))
+        .querySelectorAll(".draggable"),
+    ];
+    drag.elems.forEach((element) => {
+      element.addEventListener("dragstart", (e) => {
+        element.classList.add("dragging");
+      });
+    });
+
+    drag.elems.forEach((element) => {
+      element.addEventListener("dragend", (e) => {
+        if (drag.next) {
+          $(drag.next).removeClass("swap");
+          const copy_to = $(".dragging").clone(true);
+          copy_to.removeClass("dragging");
+          const copy_from = $(drag.next).clone(true);
+
+          $(drag.next).replaceWith(copy_to);
+          $(".dragging").replaceWith(copy_from);
+          initiateDraggable();
+        }
+        element.classList.remove("dragging");
+      });
+    });
+
+    document
+      .getElementById(self.gridRoot.substring(1))
+      .addEventListener("dragover", (e) => {
+        e.preventDefault();
+        const next = getDragAfterElement(
+          document.getElementById(self.gridRoot.substring(1)),
+          e.clientY,
+          e.clientX
+        );
+        if (next) {
+          drag.next = next;
+          $(self.gridRoot).children(".swap").removeClass("swap");
+          $(drag.next).addClass("swap");
+        }
+      });
+  }
+
   function getDragAfterElement(root, y, x) {
-    const all = [...root.querySelectorAll(".draggable:not(.dragging)")];
-    return all.reduce(
+    const all = [...root.querySelectorAll(".draggable")];
+    const temp = all.reduce(
       (closest, child) => {
         const box = child.getBoundingClientRect();
-        const offset = [
-          x - box.left - box.width / 2,
-          y - box.top - box.height / 2,
-        ];
+        const offset = [x - (box.left + box.width), y - (box.top + box.height)];
+        // print(
+        //   `y:${y} boxTop:${box.top} boxHeight: ${box.height} offset:${offset}`
+        // );
         if (
           offset[0] < 0 &&
           offset[0] > closest.offset[0] &&
@@ -79,7 +90,8 @@ function initializeGrid(style, gridRoot) {
         }
       },
       { offset: [Number.NEGATIVE_INFINITY, Number.NEGATIVE_INFINITY] }
-    ).element;
+    );
+    return temp.element;
   }
 
   function getChildCSS() {
@@ -104,7 +116,7 @@ function initializeGrid(style, gridRoot) {
         return self.style.height;
       },
       padding: self.style.padding,
-      "grid-template-rows": "auto auto auto",
+      // "grid-template-rows": "auto auto auto",
     };
 
     $(self.gridRoot).css(self.parentCss);
