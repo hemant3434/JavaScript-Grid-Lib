@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>JS Libraries Demo</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Jquery from a Google CDN.  
+      If you don't use either async or defer, the DOM load is blocked until the script is downloaded and executed. -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- 'defer' says that the script should be loaded after the DOM is loaded.
+        If multiple scripts have 'defer', they are loaded one after the other.  -->
+    <!-- <script defer type="text/javascript" src="ultimate-grid.js"></script> -->
+
+    <!-- 'async' states that it is safe to load the script without blocking 
+          DOM loading.  Note that if multiple scripts are 'async', their order
+          of loading is not guaratneed (don't use async if one script depends
+          on the other). -->
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
+    <div class="header">
+      <table>
+        <tr>
+          <td>
+            <a href="/pub/landing-page.html">Home</a>
+          </td>
+          <td>
+            <a href="#">Api Docs</a>
+          </td>
+          <td><a href="/pub/examples.html">Examples</a></td>
+          <td><a href="#">Download</a></td>
+        </tr>
+      </table>
+    </div>
+    <div class="title">
+      <table>
+        <tr>
+          <td><p class="ptitle">Ultimate-Grid.js</p></td>
+        </tr>
+        <tr>
+          <td>
+            <p class="psubtitle">
+              JavaScript Grid library for 2D draggable and swappable Grid
+              elements
+            </p>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="features">
+      <table>
+        <tr>
+          <td>
+            <div class="card">
+              <table>
+                <tr>
+                  <td>
+                    <img src="/pub/images/drag.png" />
+                  </td>
+                </tr>
+                <tr>
+                  <td class="cardText">
+                    <p>
+                      Lorem Ipsum is simply dummy text of the printing and
+                      typesetting industry. Lorem Ipsum has been the industry's
+                      standard dummy text ever since the 1500s, when an unknown
+                      printer took a galley of type and scrambled it to make a
+                      type specimen book
+                    </p>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </td>
+          <td>
+            <div class="card">
+              <table>
+                <tr>
+                  <td>
+                    <img src="/pub/images/swap.png" />
+                  </td>
+                </tr>
+                <tr>
+                  <td class="cardText">
+                    <p>
+                      Lorem Ipsum is simply dummy text of the printing and
+                      typesetting industry. Lorem Ipsum has been the industry's
+                      standard dummy text ever since the 1500s, when an unknown
+                      printer took a galley of type and scrambled it to make a
+                      type specimen book
+                    </p>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </td>
+          <td>
+            <div class="card">
+              <table>
+                <tr>
+                  <td>
+                    <img src="/pub/images/lightbulb.png" />
+                  </td>
+                </tr>
+                <tr>
+                  <td class="cardText">
+                    <p>
+                      Lorem Ipsum is simply dummy text of the printing and
+                      typesetting industry. Lorem Ipsum has been the industry's
+                      standard dummy text ever since the 1500s, when an unknown
+                      printer took a galley of type and scrambled it to make a
+                      type specimen book
+                    </p>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>

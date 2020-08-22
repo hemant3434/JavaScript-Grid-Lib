@@ -8,24 +8,30 @@
 }
 
 .draggable.dragging {
-  opacity: 0.4;
+  opacity: 1;
 }
 ::selection {
   user-select: none;
 }
 
+.append {
+  box-sizing: border-box;
+  border: 3px dotted black;
+}
+
 .swap {
+  box-sizing: border-box;
   border: 3px dotted black;
 }
 
 #schedule {
-  margin: 10px;
+  /* margin: 10px; */
   background-color: rgba(255, 0, 0, 0.4);
   border-radius: 20px;
 }
 
 #schedule2 {
-  margin: 10px;
+  /* margin: 10px; */
   background-color: rgba(0, 255, 0, 0.4);
   border-radius: 20px;
 }
@@ -36,6 +42,7 @@
 }
 
 #items {
+  /* padding: 10px; */
   float: left;
   border-radius: 10px;
 }
@@ -47,6 +54,7 @@
 }
 
 #items2 {
+  /* padding: 10px; */
   float: left;
   border-radius: 10px;
 

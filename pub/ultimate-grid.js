@@ -14,9 +14,6 @@ function initializeGrid(style, gridRoot) {
   })();
 
   function buildGridItems() {
-    const tempCSS = getChildCSS();
-    $(self.gridRoot).children().css(tempCSS);
-
     if (self.style.draggable) {
       initiateDraggable();
     }
@@ -32,37 +29,50 @@ function initializeGrid(style, gridRoot) {
     ];
     drag.elems.forEach((element) => {
       element.addEventListener("dragstart", (e) => {
+        // print(e);
+        // print(e.target);
+        // print(self.gridRoot);
+        e.dataTransfer.setData("text", self.gridRoot);
+        element.draggable = true;
         element.classList.add("dragging");
+        if (self.style.drag_mode !== "swap") {
+          element.classList.add("append");
+        }
       });
     });
 
     drag.elems.forEach((element) => {
       element.addEventListener("drop", (e) => {
-        print(e.target);
-        $(".swap").removeClass("swap");
-        const copy_to = $(".dragging").clone(true);
-        copy_to.removeClass("dragging");
-        if (drag.next) {
-          const copy_from = $(drag.next).clone(true);
-          $(drag.next).replaceWith(copy_to);
-          $(".dragging").replaceWith(copy_from);
+        // print(e.dataTransfer.getData("text"));
+        if (self.style.drag_mode !== "append") {
+          $(".swap").removeClass("swap");
+          const copy_to = $(".dragging").clone(true);
+          copy_to.removeClass("dragging");
+          if (drag.next) {
+            const copy_from = $(drag.next).clone(true);
+            $(drag.next).replaceWith(copy_to);
+            $(".dragging").replaceWith(copy_from);
+          }
         }
-        initiateDraggable();
+        const id = e.dataTransfer.getData("text");
+        const newRowSize = buildRowSize(id);
+        $(id).css("grid-template-rows", newRowSize);
+
         element.classList.remove("dragging");
+        initiateDraggable();
       });
     });
 
     drag.elems.forEach((element) => {
       element.addEventListener("dragend", (e) => {
-        print(e.target);
         initiateDraggable();
+        element.classList.remove("append");
       });
     });
 
     document
       .getElementById(self.gridRoot.substring(1))
       .addEventListener("dragover", (e) => {
-        // initiateDraggable();
         e.preventDefault();
         const next = getDragAfterElement(
           document.getElementById(self.gridRoot.substring(1)),
@@ -70,10 +80,17 @@ function initializeGrid(style, gridRoot) {
           e.clientX
         );
         if (next) {
-          // print(next);
-          drag.next = next;
-          $(".swap").removeClass("swap");
-          $(next).addClass("swap");
+          if (self.style.drag_mode === "append") {
+            $(".dragging").insertAfter(next);
+            $(self.gridRoot).css("grid-template-rows", () => {
+              const temp = buildRowSize(self.gridRoot);
+              $(self.gridRoot).css("grid-template-rows", temp);
+            });
+          } else {
+            drag.next = next;
+            $(".swap").removeClass("swap");
+            $(next).addClass("swap");
+          }
         }
       });
   }
@@ -103,17 +120,30 @@ function initializeGrid(style, gridRoot) {
     return temp.element;
   }
 
-  function getChildCSS() {
-    const tempCSS = {};
-    if (self.style.widthItem) tempCSS.width = self.style.widthItem;
-    if (self.style.heightItem) tempCSS.height = self.style.heightItem;
-    return tempCSS;
+  function setChildCSS() {
+    [...$(self.gridRoot).children()].forEach((each, i) => {
+      if (self.style.custom_size) {
+        $(each).css({
+          width: "100%",
+          height: "100%",
+          "grid-row-start": "span " + self.style.custom_size[i].toString(),
+        });
+      } else {
+        $(each).css({
+          width: "100%",
+          height: "100%",
+          "grid-row-start": "span 1",
+        });
+      }
+    });
   }
 
   function buildParentGridContainer() {
+    setChildCSS();
     self.parentCss = {
       "background-color": self.style.color,
       "grid-template-columns": buildColSize(),
+      "grid-template-rows": buildRowSize(self.gridRoot),
       "grid-gap": self.style.gap,
       display: "grid",
       width: () => {
@@ -125,7 +155,6 @@ function initializeGrid(style, gridRoot) {
         return self.style.height;
       },
       padding: self.style.padding,
-      // "grid-template-rows": "auto auto auto",
     };
 
     $(self.gridRoot).css(self.parentCss);
@@ -137,10 +166,27 @@ function initializeGrid(style, gridRoot) {
       if (self.style.sizeCol) {
         tempCol += self.style.sizeCol.toString() + "px ";
       } else {
-        tempCol += "auto ";
+        tempCol += "1fr ";
       }
     }
     return tempCol;
   }
+
+  function buildRowSize(selector) {
+    let tempRow = "";
+    [...$(selector).children()].forEach((each) => {
+      const size = parseInt($(each).css("grid-row-start").split(" ")[1]);
+      for (let i = 0; i < size; i++) {
+        if (self.style.sizeRow) {
+          tempRow += self.style.sizeRow + "px ";
+        } else {
+          tempRow += self.style.sizeRow + "1fr ";
+        }
+      }
+    });
+    // print(tempRow);
+    return tempRow;
+  }
+
   return self;
 }
