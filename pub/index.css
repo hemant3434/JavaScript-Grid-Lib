@@ -10,7 +10,7 @@ body {
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 20px;
+  font-size: 25px;
   font-weight: 800;
   cursor: pointer;
   transition-duration: 0.4s;
@@ -115,10 +115,6 @@ body {
 .draggable.dragging {
   opacity: 1;
 }
-::selection {
-  user-select: none;
-}
-
 .append {
   box-sizing: border-box;
   border: 3px dotted black;
@@ -161,7 +157,10 @@ textarea {
 #items3,
 #items4,
 #items5,
-#items6 {
+#items6,
+#items7,
+#items8,
+#items9 {
   float: left;
   border-radius: 10px;
   margin-top: 20px;
@@ -188,14 +187,14 @@ textarea {
 }
 
 .example1 {
-  float: left;
-  width: max-content;
-  margin-left: 100px;
+  text-align: center;
+  height: max-content;
+  margin-bottom: 400px;
 }
 
 .example2 {
-  float: right;
-  margin-right: 100px;
+  margin-left: 100px;
+  float: left;
   width: max-content;
 }
 
@@ -205,8 +204,218 @@ textarea {
   font-size: 30px;
 }
 
+#items {
+  margin-left: calc(60vw / 2);
+}
+
 .example2 > p {
   margin: 0;
   text-align: center;
   font-size: 30px;
+}
+
+.example3 {
+  margin-right: 100px;
+  float: right;
+}
+
+.example3 > p {
+  margin-top: 0;
+  margin-right: 0;
+  text-align: left;
+  font-size: 30px;
+}
+
+.example3 > table {
+  border-spacing: 20px 5px;
+}
+.footer {
+  margin-top: 30px;
+  width: 100%;
+  height: 100px;
+  background-color: aliceblue;
+  float: right;
+}
+
+.addButton {
+  background-color: lightblue;
+  color: black;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  cursor: pointer;
+  width: 150px;
+  margin: 0;
+  display: block;
+  border: none;
+  outline: none;
+}
+
+.mainDoc {
+  margin-top: 80px;
+  margin-left: 50px;
+  width: 85%;
+}
+
+.highlight1 {
+  width: max-content;
+  height: 23px;
+  border-radius: 10px;
+}
+
+.ul1 > li {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+/* 
+.hljs {
+  overflow-x: auto;
+  overflow-y: auto;
+} */
+
+.ul1 > li > ul > li {
+  font-size: 18px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.mainDoc > h1 {
+  margin: 20px;
+  color: blue;
+  font-size: 40px;
+}
+
+.required_params {
+  width: 100%;
+}
+
+.required_params > tbody > tr {
+  text-align: left;
+}
+
+.required_params > tbody > tr > th {
+  text-align: left;
+  font-size: 23px;
+}
+.mainDoc > h4 {
+  font-style: italic;
+  font-weight: 100;
+  margin-top: 3px;
+  margin-bottom: 20px;
+}
+.mainDoc > h2 {
+  margin: 3px;
+  padding: 0;
+}
+.required_params > tbody > tr > td {
+  padding-bottom: 15px;
+  padding-top: 15px;
+  font-size: 18px;
+  text-align: left;
+  border-bottom: solid 1px lightblue;
+}
+
+.required_params > tbody > tr > td:nth-child(4) {
+  width: 50%;
+}
+
+.required_params > tbody > tr > td:nth-child(-n + 3) {
+  width: 16%;
+}
+
+.optional_params > tbody > tr > td {
+  padding-bottom: 15px;
+  padding-top: 15px;
+  font-size: 18px;
+  text-align: left;
+  border-bottom: solid 1px lightblue;
+}
+
+.optional_params > tbody > tr > td:nth-child(4) {
+  width: 50%;
+}
+
+.optional_params > tbody > tr > td:nth-child(-n + 3) {
+  width: 16%;
+}
+
+.optional_params {
+  width: 100%;
+}
+
+.optional_params > tbody > tr {
+  text-align: left;
+}
+
+.optional_params > tbody > tr > th {
+  text-align: left;
+  font-size: 23px;
+}
+
+.addSpacing {
+  margin: 50px;
+}
+
+.methods > tbody > tr > td {
+  padding-bottom: 15px;
+  padding-top: 15px;
+  font-size: 18px;
+  text-align: left;
+  border-bottom: solid 1px lightblue;
+}
+
+.methods > tbody > tr > td:nth-child(4) {
+  width: 50%;
+}
+
+.methods > tbody > tr > td:nth-child(-n + 3) {
+  width: 16%;
+}
+
+.methods {
+  width: 100%;
+}
+
+.methods > tbody > tr {
+  text-align: left;
+}
+
+.methods > tbody > tr > th {
+  text-align: left;
+  font-size: 23px;
+}
+
+.API_example > tbody > tr > td {
+  padding-bottom: 15px;
+  padding-top: 15px;
+  font-size: 18px;
+  text-align: left;
+  border-bottom: solid 1px lightblue;
+}
+
+.API_example > tbody > tr > td:nth-child(2) {
+  width: 60%;
+}
+
+.API_example > tbody > tr > td:nth-child(-n + 1) {
+  width: 40%;
+}
+
+.API_example {
+  width: 100%;
+}
+
+.API_example > tbody > tr {
+  text-align: left;
+}
+
+.API_example > tbody > tr > th {
+  text-align: left;
+  font-size: 23px;
+}
+
+.snippet1 {
+  height: fit-content;
+  border-radius: 10px;
 }

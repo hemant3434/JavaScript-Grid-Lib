@@ -184,13 +184,22 @@ const print = console.log;
       return tempRow;
     };
 
-    self.addElement = function (element) {};
+    self.addElement = function (element, size) {
+      if (size) {
+        if (self.style.custom_size) self.style.custom_size.push(size);
+      } else {
+        if (self.style.custom_size) self.style.custom_size.push(1);
+      }
+      $(self.gridRoot).append(element);
+      self.buildParentGridContainer();
+      self.buildGridItems();
+      return self;
+    };
 
     void (() => {
       self.buildParentGridContainer();
       self.buildGridItems();
     })();
-
     return self;
   }
   global.initializeGrid = global.initializeGrid || initializeGrid;

@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Ultimate-Grid</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link
+      rel="stylesheet"
+      href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/a11y-dark.min.css"
+    />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/highlight.min.js"></script>
+
+    <script>
+      hljs.initHighlightingOnLoad();
+    </script>
+
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
+    <div class="header">
+      <table>
+        <tr>
+          <td>
+            <a href="/pub/index.html">Home</a>
+          </td>
+          <td>
+            <a href="/pub/documentation.html">Api Docs</a>
+          </td>
+          <td><a href="/pub/examples.html">Examples</a></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="mainDoc">
+      <h1>Getting Started</h1>
+
+      <ul class="ul1">
+        <li>
+          JQuery is required to be able to run the library. The examples shown
+          are using JQuery v3.5.1 CDN
+        </li>
+        <li>
+          Required CSS Styles: swap, append, draggable, dragging. Ones used in
+          examples have following properties:
+          <ul>
+            <li>
+              .swap: { box-sizing : border-box , border : 3px dotted black}
+            </li>
+            <li>
+              .dragging: { opacity : 1 }
+            </li>
+            <li>.draggable: {cursor : move }</li>
+            <li>
+              .append: { box-sizing : border-box , border : 3px dotted black}
+            </li>
+          </ul>
+        </li>
+        <li>
+          The JQuery and Ultimate-Grid imports must go in this order and are as
+          follows:
+          <ul>
+            <li>
+              <pre><code class="language-html highlight1">&lt;script&gt;src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">&lt;/script&gt;</code></pre>
+            </li>
+            <li>
+              <pre><code class="language-html highlight1">&lt;script&gt; src="ultimate-grid.js">&lt;/script&gt;
+              </code></pre>
+            </li>
+          </ul>
+        </li>
+      </ul>
+
+      <h1>API</h1>
+      <h2>Required Params</h2>
+      <h4>Note: Required and Optional Params are inserted into a JS Object</h4>
+      <table class="required_params">
+        <tr>
+          <th>Property</th>
+          <th>Default</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td>padding</td>
+          <td>0</td>
+          <td>integer (px)</td>
+          <td>padding for the grid-container</td>
+        </tr>
+        <tr>
+          <td>gap</td>
+          <td>0</td>
+          <td>integer (px)</td>
+          <td>gap between rows/columns for the grid-container</td>
+        </tr>
+        <tr>
+          <td>numCols</td>
+          <td>-</td>
+          <td>integer</td>
+          <td>need to define the number of columns in the grid system</td>
+        </tr>
+        <tr>
+          <td>draggable</td>
+          <td>-</td>
+          <td>boolean</td>
+          <td>
+            enable the modes for dragging along with initialization of grid
+            dragging system. (Is needed in order for drag_mode, drag_factor to
+            take effect)
+          </td>
+        </tr>
+        <tr>
+          <td>drag_mode</td>
+          <td>swap</td>
+          <td>string</td>
+          <td>
+            Used to determine the type of the dragging mode which can be either
+            "append" OR "swap". Needs (See examples page for visualization)
+          </td>
+        </tr>
+        <tr>
+          <td>drag_factor</td>
+          <td>-</td>
+          <td>integer</td>
+          <td>
+            determines how "easy" it is to swap/append within the grid system. 0
+            &lt; n &lt; 1. Close to 0 meaning very easy to swap/append grid
+            elements and close to 1 meaning precise drag over is required
+          </td>
+        </tr>
+      </table>
+
+      <div class="addSpacing"></div>
+      <h2>Optional Params</h2>
+      <h4>Note: Required and Optional Params are inserted into a JS Object</h4>
+
+      <table class="optional_params">
+        <tr>
+          <th>Property</th>
+          <th>Default</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td>color</td>
+          <td>White</td>
+          <td>string</td>
+          <td>background color of the grid</td>
+        </tr>
+        <tr>
+          <td>sizeCol</td>
+          <td>1fr</td>
+          <td>integer (px)</td>
+          <td>fix the size of each column in the grid</td>
+        </tr>
+        <tr>
+          <td>sizeRow</td>
+          <td>1fr</td>
+          <td>integer (px)</td>
+          <td>fix the size of each in the grid</td>
+        </tr>
+        <tr>
+          <td>width</td>
+          <td>max-content</td>
+          <td>integer (px)</td>
+          <td>
+            Used to fix the width of the grid instead of growing with the number
+            of columns
+          </td>
+        </tr>
+        <tr>
+          <td>height</td>
+          <td>max-content</td>
+          <td>integer (px)</td>
+          <td>
+            Used to fix the height of the grid instead of growing vertically
+          </td>
+        </tr>
+        <tr>
+          <td>custom_size</td>
+          <td>[1*(# of grid elems)]</td>
+          <td>Array</td>
+          <td>
+            Array must be of integers > 1 corresponding to the row span of the
+            grid element at an index. Each index of this array represents the
+            corresponding index of grid element in the container before
+            intializing the grid system
+          </td>
+        </tr>
+      </table>
+
+      <div class="addSpacing"></div>
+      <h2>Available Methods</h2>
+      <h4>
+        Note: Methods other than initializeGrid() must be called using the
+        returned object from grid intialization method call
+      </h4>
+
+      <table class="methods">
+        <tr>
+          <th>Name</th>
+          <th>Args</th>
+          <th>returned</th>
+          <th>Behaviour</th>
+        </tr>
+        <tr>
+          <td>initializeGrid</td>
+          <td>Params as JS Object, grid-container id</td>
+          <td>JS Object</td>
+          <td>
+            takes in the required/optional params and intializes the grid system
+            including dragging, any CSS properties etc. Returns a JS Object
+            which is then used to call upon the API's Available
+          </td>
+        </tr>
+        <tr>
+          <td>addElement</td>
+          <td>DOM element, rowSize</td>
+          <td>JS Object</td>
+          <td>
+            adds an element to the grid whose JS object this function is called
+            with. rowSize must follow same rule as custom_size optional param
+            and is optional. (Note: rowSize only works if the grid is intialized
+            with the custom_size optional parameter and otherwise by default
+            element takes up 1 row worth of space)
+          </td>
+        </tr>
+      </table>
+      <div class="addSpacing"></div>
+
+      <h2>Some of the Initialization from examples page</h2>
+      <h4>
+        Note: Methods other than initializeGrid() must be called using the
+        returned object from grid intialization method call
+      </h4>
+
+      <table class="API_example">
+        <tr>
+          <th>Use Case</th>
+          <th>API Call(s) Code Snippets</th>
+        </tr>
+
+        <tr>
+          <td>
+            Draggable append with the add API, creating an advanced weekly
+            planner application
+          </td>
+          <td>
+            <pre><code class="language-javascript snippet1">
+              const style2 = {
+                padding: 15,
+                gap: 20,
+                numCols: 1,
+                custom_size: [1, 1, 1],
+                sizeCol: 150,
+                sizeRow: 80,
+                color: "rgba(255, 0, 0, 0.4)",
+                draggable: true,
+                drag_mode: "swap",
+                drag_factor: 1,
+              };
+              initializeGrid(style2, "#items");
+              initializeGrid(style2, "#items2");
+              initializeGrid(style2, "#items3");
+
+            </code></pre>
+            initializeGrid is called three time since there are 3 independent
+            swappable grid systems.
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="footer"></div>
+  </body>
+</html>
