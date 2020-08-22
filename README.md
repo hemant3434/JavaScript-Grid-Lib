@@ -1,8 +1,6 @@
-# js-library-bhanothe
+# # js-library-bhanothe (Utlimate-grid.js)
 
 Link: https://secure-dawn-43678.herokuapp.com/
-
-# # js-library-bhanothe (Utlimate-grid.js)
 
 Getting Started
 
